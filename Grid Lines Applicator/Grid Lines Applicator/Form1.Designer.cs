@@ -47,10 +47,17 @@
             this.controls = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.controls2 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.gridpic = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.slider)).BeginInit();
             this.controls.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            this.controls2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridpic)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -126,7 +133,7 @@
             // colorToolStripMenuItem
             // 
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.colorToolStripMenuItem.Text = "Color";
             this.colorToolStripMenuItem.Click += new System.EventHandler(this.colorToolStripMenuItem_Click);
             // 
@@ -149,10 +156,9 @@
             this.picture.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.picture.Location = new System.Drawing.Point(0, 27);
             this.picture.Name = "picture";
-            this.picture.Size = new System.Drawing.Size(490, 264);
+            this.picture.Size = new System.Drawing.Size(458, 264);
             this.picture.TabIndex = 1;
             this.picture.TabStop = false;
-            this.picture.Paint += new System.Windows.Forms.PaintEventHandler(this.paint);
             // 
             // slider
             // 
@@ -200,17 +206,61 @@
             // 
             this.colorDialog1.Color = System.Drawing.Color.Red;
             // 
+            // trackBar1
+            // 
+            this.trackBar1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.trackBar1.Location = new System.Drawing.Point(0, 16);
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar1.Size = new System.Drawing.Size(45, 250);
+            this.trackBar1.TabIndex = 5;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // controls2
+            // 
+            this.controls2.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.controls2.Controls.Add(this.label3);
+            this.controls2.Controls.Add(this.trackBar1);
+            this.controls2.Location = new System.Drawing.Point(456, 25);
+            this.controls2.Name = "controls2";
+            this.controls2.Size = new System.Drawing.Size(90, 266);
+            this.controls2.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label3.Location = new System.Drawing.Point(0, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(37, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Zoom:";
+            // 
+            // gridpic
+            // 
+            this.gridpic.BackColor = System.Drawing.Color.Transparent;
+            this.gridpic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.gridpic.Location = new System.Drawing.Point(0, 27);
+            this.gridpic.Name = "gridpic";
+            this.gridpic.Size = new System.Drawing.Size(458, 264);
+            this.gridpic.TabIndex = 7;
+            this.gridpic.TabStop = false;
+            this.gridpic.Paint += new System.Windows.Forms.PaintEventHandler(this.gridpic_Paint);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(490, 332);
+            this.Controls.Add(this.gridpic);
+            this.Controls.Add(this.controls2);
             this.Controls.Add(this.controls);
             this.Controls.Add(this.picture);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Grid Lines Applicator";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.SizeChanged += new System.EventHandler(this.SizeChanger);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -218,6 +268,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.slider)).EndInit();
             this.controls.ResumeLayout(false);
             this.controls.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            this.controls2.ResumeLayout(false);
+            this.controls2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridpic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -244,6 +298,10 @@
         private System.Windows.Forms.ToolStripMenuItem colorToolStripMenuItem;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Panel controls2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.PictureBox gridpic;
     }
 }
 
