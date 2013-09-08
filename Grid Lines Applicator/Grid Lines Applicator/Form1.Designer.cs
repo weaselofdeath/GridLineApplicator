@@ -92,8 +92,8 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Text = "Clear";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
@@ -170,7 +170,7 @@
             this.slider.TabIndex = 2;
             this.slider.TickFrequency = 8;
             this.slider.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.slider.Value = 2;
+            this.slider.Value = 16;
             this.slider.Scroll += new System.EventHandler(this.slider_Scroll);
             // 
             // label1

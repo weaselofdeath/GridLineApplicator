@@ -16,12 +16,15 @@ namespace Grid_Lines_Applicator
         int origheight, origwidth,divide = 16;
         Bitmap bmp, bmp2; 
         string colord = "Red", error;
+        Font stringfont = new Font("Times New Roman", 16);
+        SolidBrush stringbrush = new SolidBrush(Color.Red);
         bool openedpic = false;
         public Form1()
         {
             InitializeComponent();
             origheight = Form1.ActiveForm.Height;
             origwidth = Form1.ActiveForm.Width;
+            gridpic.Location = new Point(0, 0);
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -64,10 +67,10 @@ namespace Grid_Lines_Applicator
                     openedpic = true;
                     bmp = new Bitmap(OpenFileDialog1.FileName);
                     picture.Image = bmp;
-                    bmp2 = new Bitmap(picture.Width, picture.Height);
-                    gridpic.Image = bmp2;
                     Form1.ActiveForm.Width = picture.Image.Width;
                     Form1.ActiveForm.Height = picture.Image.Height + menuStrip1.Height + controls.Height + 65;
+                    bmp2 = new Bitmap(gridpic.Width, gridpic.Height);
+                    gridpic.Image = bmp2;
                     if (bmp.Width > Screen.PrimaryScreen.WorkingArea.Width)
                     {
                         Form1.ActiveForm.Width = Screen.PrimaryScreen.WorkingArea.Width;
@@ -76,6 +79,7 @@ namespace Grid_Lines_Applicator
                     {
                         Form1.ActiveForm.Height = Screen.PrimaryScreen.WorkingArea.Height;
                     }
+                    gridpic.Invalidate();
                     
                     
                 }
@@ -99,12 +103,13 @@ namespace Grid_Lines_Applicator
 
         private void SizeChanger(object sender, EventArgs e)
         {
+
            // picture.Location = new Point(0, menuStrip1.Height);
             picture.Width = Form1.ActiveForm.Width;
             picture.Height = Form1.ActiveForm.Height-(menuStrip1.Height + controls.Height+36);
-            //gridpic.Location = new Point(0, menuStrip1.Height);
-            gridpic.Width = Form1.ActiveForm.Width- (controls2.Width/2);
-            gridpic.Height = Form1.ActiveForm.Height - (menuStrip1.Height + controls.Height+36);
+            gridpic.Location = new Point(0,0);
+            gridpic.Width = Form1.ActiveForm.Width;
+            gridpic.Height = Form1.ActiveForm.Height-(menuStrip1.Height + controls.Height+36);
             controls.Location = new Point(0,Form1.ActiveForm.Height - 82);
             controls.Width = Form1.ActiveForm.Width;
             controls2.Location = new Point(picture.Right - (controls2.Width/2)-5,menuStrip1.Height);
@@ -124,7 +129,7 @@ namespace Grid_Lines_Applicator
         {
             if (openedpic == true)
             {
-                Bitmap bmp2 = new Bitmap(gridpic.Width, gridpic.Height, PixelFormat.Format32bppPArgb);
+                Bitmap bmp2 = new Bitmap(Form1.ActiveForm.Width, Form1.ActiveForm.Height, PixelFormat.Format32bppPArgb);
             }
             divide = slider.Value;
             picture.Invalidate();
@@ -165,6 +170,8 @@ namespace Grid_Lines_Applicator
                     number2 += formheight / divide;
                     g.DrawLine(Pens.Red, 0 + number, 0, 0 + number, picture.Bottom);//vertical red lines
                     g.DrawLine(Pens.Red, picture.Left, 0 + number2, picture.Right, 0 + number2);//horizontal red lines
+                    Point vert = new Point(0, 0 + number);
+                    g.DrawString("G" + x, stringfont, stringbrush, vert);
                 }
             }
             else if (openedpic == true)
@@ -175,10 +182,15 @@ namespace Grid_Lines_Applicator
                 {
                     number += formwidth / divide;
                     number2 += formheight / divide;
-                    g.DrawLine(new Pen(Color.Red), new Point(0 + number, gridpic.Top), new Point(0 + number, gridpic.Bottom));
-                    g.DrawLine(new Pen(Color.Red), new Point(gridpic.Left, 0 + number2), new Point(gridpic.Right, 0 + number2));
+                    //g.DrawLine(new Pen(Color.Red), new Point(0 + number, gridpic.Top), new Point(0 + number, gridpic.Bottom));
+                    //g.DrawLine(new Pen(Color.Red), new Point(gridpic.Left, 0 + number2), new Point(gridpic.Right, 0 + number2));
+                    g.DrawLine(Pens.Red, 0 + number, 0, 0 + number, picture.Bottom);//vertical red lines
+                    g.DrawLine(Pens.Red, picture.Left, 0 + number2, picture.Right, 0 + number2);//horizontal red lines
+                    Point vert = new Point(0,0 + number);
+                    g.DrawString("G" + x, stringfont, stringbrush, vert);
                 }
             }
+
         }
     }
 }
