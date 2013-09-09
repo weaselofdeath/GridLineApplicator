@@ -92,7 +92,7 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.newToolStripMenuItem.Text = "Clear";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
@@ -164,7 +164,7 @@
             // 
             this.slider.Location = new System.Drawing.Point(36, 0);
             this.slider.Maximum = 50;
-            this.slider.Minimum = 2;
+            this.slider.Minimum = 6;
             this.slider.Name = "slider";
             this.slider.Size = new System.Drawing.Size(442, 45);
             this.slider.TabIndex = 2;

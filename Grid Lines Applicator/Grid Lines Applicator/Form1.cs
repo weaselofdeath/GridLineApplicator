@@ -131,7 +131,8 @@ namespace Grid_Lines_Applicator
             {
                 Bitmap bmp2 = new Bitmap(Form1.ActiveForm.Width, Form1.ActiveForm.Height, PixelFormat.Format32bppPArgb);
             }
-            divide = slider.Value;
+            stringfont = new Font("Times New Roman", 51-slider.Value);
+            divide = slider.Value/3;
             picture.Invalidate();
             gridpic.Invalidate();
         }
@@ -170,8 +171,15 @@ namespace Grid_Lines_Applicator
                     number2 += formheight / divide;
                     g.DrawLine(Pens.Red, 0 + number, 0, 0 + number, picture.Bottom);//vertical red lines
                     g.DrawLine(Pens.Red, picture.Left, 0 + number2, picture.Right, 0 + number2);//horizontal red lines
-                    Point vert = new Point(0, 0 + number);
+                    //Point vert = new Point(0, number/2);
+                    //g.DrawString("G" + x, stringfont, stringbrush, vert);
+                }
+                number = 0;
+                for (int x = 0; x < divide; x++)
+                {
+                    Point vert = new Point(0, ((number) / 2)+x);
                     g.DrawString("G" + x, stringfont, stringbrush, vert);
+                    number += formwidth / divide;
                 }
             }
             else if (openedpic == true)
