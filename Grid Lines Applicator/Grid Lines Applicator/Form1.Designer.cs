@@ -38,6 +38,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gridLettersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -125,7 +126,8 @@
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.colorToolStripMenuItem});
+            this.colorToolStripMenuItem,
+            this.gridLettersToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -133,9 +135,18 @@
             // colorToolStripMenuItem
             // 
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.colorToolStripMenuItem.Text = "Color";
             this.colorToolStripMenuItem.Click += new System.EventHandler(this.colorToolStripMenuItem_Click);
+            // 
+            // gridLettersToolStripMenuItem
+            // 
+            this.gridLettersToolStripMenuItem.Checked = true;
+            this.gridLettersToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.gridLettersToolStripMenuItem.Name = "gridLettersToolStripMenuItem";
+            this.gridLettersToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.gridLettersToolStripMenuItem.Text = "Grid Letters";
+            this.gridLettersToolStripMenuItem.Click += new System.EventHandler(this.gridLettersToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -162,12 +173,13 @@
             // 
             // slider
             // 
+            this.slider.LargeChange = 3;
             this.slider.Location = new System.Drawing.Point(36, 0);
             this.slider.Maximum = 50;
             this.slider.Minimum = 6;
             this.slider.Name = "slider";
             this.slider.Size = new System.Drawing.Size(442, 45);
-            this.slider.TabIndex = 2;
+            this.slider.TabIndex = 1;
             this.slider.TickFrequency = 8;
             this.slider.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.slider.Value = 16;
@@ -302,6 +314,7 @@
         private System.Windows.Forms.Panel controls2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.PictureBox gridpic;
+        private System.Windows.Forms.ToolStripMenuItem gridLettersToolStripMenuItem;
     }
 }
 

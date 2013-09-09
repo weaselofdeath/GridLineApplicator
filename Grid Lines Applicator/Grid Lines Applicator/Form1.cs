@@ -12,31 +12,46 @@ using System.Windows.Forms;
 namespace Grid_Lines_Applicator
 {
     public partial class Form1 : Form
-    {
-        int origheight, origwidth,divide = 16;
-        Bitmap bmp, bmp2; 
-        string colord = "Red", error;
+    {       
+        Bitmap bmp, bmp2;
+        //string error;
+        Pen drawpen = new Pen(Color.Red);
         Font stringfont = new Font("Times New Roman", 16);
+        int origheight, origwidth, divide = 16;
         SolidBrush stringbrush = new SolidBrush(Color.Red);
-        bool openedpic = false;
+        bool openedpic = false,gridletters = true;
         public Form1()
         {
             InitializeComponent();
-            origheight = Form1.ActiveForm.Height;
-            origwidth = Form1.ActiveForm.Width;
+            origheight = this.Height;
+            origwidth = this.Width;
             gridpic.Location = new Point(0, 0);
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             picture.Image = null;
-            Form1.ActiveForm.Height = origheight;
-            Form1.ActiveForm.Width = origwidth;
+            this.Height = origheight;
+            this.Width = origwidth;
             openedpic = false;
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            try
+            {
+                Bitmap bmp3 = new Bitmap(bmp.Width, bmp.Height);
+            if (openedpic == true)
+            {
+                using (Graphics g = Graphics.FromImage(bmp3))
+                {
+                    g.DrawImage(bmp, 0, 0);
+                    g.DrawImage(bmp2, 0, 0);
+                    picture.Image = bmp3;
+                    gridpic.Image = null;
+                }
+            }
+            MessageBox.Show("Warning: After saving\nthis application will close.");
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Images|*.png;*.bmp;*.jpg";
             ImageFormat format = ImageFormat.Png;
@@ -53,6 +68,15 @@ namespace Grid_Lines_Applicator
                         break;
                 }
                 picture.Image.Save(sfd.FileName, format);
+             }
+            }
+            catch 
+            {
+                MessageBox.Show("You must load an image before trying to save.\nPlease do so.");
+            }
+            if (openedpic == true)
+            {
+                this.Close();
             }
         }
 
@@ -67,17 +91,17 @@ namespace Grid_Lines_Applicator
                     openedpic = true;
                     bmp = new Bitmap(OpenFileDialog1.FileName);
                     picture.Image = bmp;
-                    Form1.ActiveForm.Width = picture.Image.Width;
-                    Form1.ActiveForm.Height = picture.Image.Height + menuStrip1.Height + controls.Height + 65;
+                    this.Width = picture.Image.Width;
+                    this.Height = picture.Image.Height + menuStrip1.Height + controls.Height+35;
                     bmp2 = new Bitmap(gridpic.Width, gridpic.Height);
                     gridpic.Image = bmp2;
                     if (bmp.Width > Screen.PrimaryScreen.WorkingArea.Width)
                     {
-                        Form1.ActiveForm.Width = Screen.PrimaryScreen.WorkingArea.Width;
+                        this.Width = Screen.PrimaryScreen.WorkingArea.Width;
                     }
                     if (bmp.Height > Screen.PrimaryScreen.WorkingArea.Height)
                     {
-                        Form1.ActiveForm.Height = Screen.PrimaryScreen.WorkingArea.Height;
+                        this.Height = Screen.PrimaryScreen.WorkingArea.Height;
                     }
                     gridpic.Invalidate();
                     
@@ -105,19 +129,20 @@ namespace Grid_Lines_Applicator
         {
 
            // picture.Location = new Point(0, menuStrip1.Height);
-            picture.Width = Form1.ActiveForm.Width;
-            picture.Height = Form1.ActiveForm.Height-(menuStrip1.Height + controls.Height+36);
+            picture.Width = this.Width;
+            picture.Height = this.Height - (menuStrip1.Height + controls.Height + 36);
             gridpic.Location = new Point(0,0);
-            gridpic.Width = Form1.ActiveForm.Width;
-            gridpic.Height = Form1.ActiveForm.Height-(menuStrip1.Height + controls.Height+36);
-            controls.Location = new Point(0,Form1.ActiveForm.Height - 82);
-            controls.Width = Form1.ActiveForm.Width;
+            gridpic.Width = this.Width;
+            gridpic.Height = this.Height - (menuStrip1.Height + controls.Height + 36);
+            controls.Location = new Point(0, this.Height - 82);
+            controls.Width = this.Width;
             controls2.Location = new Point(picture.Right - (controls2.Width/2)-5,menuStrip1.Height);
-            controls2.Height = Form1.ActiveForm.Height - menuStrip1.Height - controls.Height-36;
-            trackBar1.Height = Form1.ActiveForm.Height - menuStrip1.Height - controls.Height - 50;
+            controls2.Height = this.Height - menuStrip1.Height - controls.Height-36;
+            trackBar1.Height = this.Height - menuStrip1.Height - controls.Height - 50;
             slider.Width = controls.Width - 65;
             picture.SizeMode = PictureBoxSizeMode.CenterImage;
             gridpic.SizeMode = PictureBoxSizeMode.CenterImage;
+            gridpic.Invalidate();
         }
 
         private void paint(object sender, PaintEventArgs e)
@@ -129,9 +154,9 @@ namespace Grid_Lines_Applicator
         {
             if (openedpic == true)
             {
-                Bitmap bmp2 = new Bitmap(Form1.ActiveForm.Width, Form1.ActiveForm.Height, PixelFormat.Format32bppPArgb);
+                Bitmap bmp2 = new Bitmap(this.Width, this.Height, PixelFormat.Format32bppPArgb);
             }
-            stringfont = new Font("Times New Roman", 51-slider.Value);
+            stringfont = new Font("Times New Roman", 51-(Convert.ToInt32(Convert.ToDouble(slider.Value)/1.3)));
             divide = slider.Value/3;
             picture.Invalidate();
             gridpic.Invalidate();
@@ -142,7 +167,8 @@ namespace Grid_Lines_Applicator
             ColorDialog ColorDialog1 = new ColorDialog();
             if (ColorDialog1.ShowDialog() == DialogResult.OK)
             {
-                colord = ColorDialog1.Color.Name.ToString();
+                stringbrush.Color = ColorDialog1.Color;
+                drawpen.Color = ColorDialog1.Color;
                 picture.Invalidate();
             }
         }
@@ -161,7 +187,7 @@ namespace Grid_Lines_Applicator
         private void gridpic_Paint(object sender, PaintEventArgs e)
         {
             int number = 0, number2 = 0;
-            int formwidth = Form1.ActiveForm.Width, formheight = Form1.ActiveForm.Height;
+            int formwidth = this.Width, formheight = this.Height;
             if (openedpic == false)
             {
                 Graphics g = e.Graphics;
@@ -169,17 +195,22 @@ namespace Grid_Lines_Applicator
                 {
                     number += formwidth / divide;
                     number2 += formheight / divide;
-                    g.DrawLine(Pens.Red, 0 + number, 0, 0 + number, picture.Bottom);//vertical red lines
-                    g.DrawLine(Pens.Red, picture.Left, 0 + number2, picture.Right, 0 + number2);//horizontal red lines
-                    //Point vert = new Point(0, number/2);
-                    //g.DrawString("G" + x, stringfont, stringbrush, vert);
+                    g.DrawLine(drawpen, 0 + number, 0, 0 + number, picture.Bottom);//vertical red lines
+                    g.DrawLine(drawpen, picture.Left, 0 + number2, picture.Right, 0 + number2);//horizontal red lines
                 }
-                number = 0;
-                for (int x = 0; x < divide; x++)
+                if (gridletters == true)
                 {
-                    Point vert = new Point(0, ((number) / 2)+x);
-                    g.DrawString("G" + x, stringfont, stringbrush, vert);
-                    number += formwidth / divide;
+                    number = 0;
+                    number2 = 0;
+                    for (int x = 0; x < divide; x++)
+                    {
+                        number2 += Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(formheight / divide)));
+                        Point vert = new Point(0,number2);
+                        Point horz = new Point(number,0);
+                        g.DrawString("G" + (x + 1), stringfont, stringbrush, vert);//vertical letters and numbers: starting at 1
+                        g.DrawString("G" + x, stringfont, stringbrush, horz);//horizontal letters and numbers: starting at 0
+                        number += Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(formwidth / divide)));
+                    }
                 }
             }
             else if (openedpic == true)
@@ -190,15 +221,41 @@ namespace Grid_Lines_Applicator
                 {
                     number += formwidth / divide;
                     number2 += formheight / divide;
-                    //g.DrawLine(new Pen(Color.Red), new Point(0 + number, gridpic.Top), new Point(0 + number, gridpic.Bottom));
-                    //g.DrawLine(new Pen(Color.Red), new Point(gridpic.Left, 0 + number2), new Point(gridpic.Right, 0 + number2));
-                    g.DrawLine(Pens.Red, 0 + number, 0, 0 + number, picture.Bottom);//vertical red lines
-                    g.DrawLine(Pens.Red, picture.Left, 0 + number2, picture.Right, 0 + number2);//horizontal red lines
-                    Point vert = new Point(0,0 + number);
-                    g.DrawString("G" + x, stringfont, stringbrush, vert);
-                }
+                    g.DrawLine(drawpen, 0 + number, 0, 0 + number, picture.Bottom);//vertical red lines
+                    g.DrawLine(drawpen, picture.Left, 0 + number2, picture.Right, 0 + number2);//horizontal red lines
+                } 
+                    if (gridletters == true)
+                    {
+                        number = 0;
+                        number2 = 0;
+                        for (int x = 0; x < divide; x++)
+                        {
+                            number2 += formheight / divide;
+                            Point vert = new Point(0, Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(number2))));
+                            Point horz = new Point(Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(number))), 0);
+                            g.DrawString("G" + (x + 1), stringfont, stringbrush, vert);//vertical letters and numbers: starting at 1
+                            g.DrawString("G" + x, stringfont, stringbrush, horz);//horizontal letters and numbers: starting at 0
+                            number += formwidth / divide;
+                        }
+                    }
+                
             }
 
+        }
+
+        private void gridLettersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (gridletters == false)
+            {
+                gridLettersToolStripMenuItem.Checked = true;
+                gridletters = true;
+            }
+            else
+            {
+                gridLettersToolStripMenuItem.Checked = false;
+                gridletters = false;
+            }
+            gridpic.Invalidate();
         }
     }
 }
