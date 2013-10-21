@@ -14,12 +14,12 @@ namespace Grid_Lines_Applicator
     public partial class Form1 : Form
     {       
         Bitmap bmp, bmp2;
-        //string error;
+        //string gridletterleft = "P", gridlettertop="M";
         Pen drawpen = new Pen(Color.Red);
         Font stringfont = new Font("Times New Roman", 16);
         int origheight, origwidth, divide = 16;
         SolidBrush stringbrush = new SolidBrush(Color.Red);
-        bool openedpic = false,gridletters = true;
+        bool openedpic = false,gridletters = true,left=false,top=false;
         public Form1()
         {
             InitializeComponent();
@@ -207,8 +207,8 @@ namespace Grid_Lines_Applicator
                         number2 += Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(formheight / divide)));
                         Point vert = new Point(0,number2);
                         Point horz = new Point(number,0);
-                        g.DrawString("G" + (x + 1), stringfont, stringbrush, vert);//vertical letters and numbers: starting at 1
-                        g.DrawString("G" + x, stringfont, stringbrush, horz);//horizontal letters and numbers: starting at 0
+                        g.DrawString(variables.letterleft + (x + 1), stringfont, stringbrush, vert);//left letters and numbers: starting at 1
+                        g.DrawString(variables.lettertop + x, stringfont, stringbrush, horz);//top letters and numbers: starting at 0
                         number += Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(formwidth / divide)));
                     }
                 }
@@ -233,8 +233,8 @@ namespace Grid_Lines_Applicator
                             number2 += formheight / divide;
                             Point vert = new Point(0, Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(number2))));
                             Point horz = new Point(Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(number))), 0);
-                            g.DrawString("G" + (x + 1), stringfont, stringbrush, vert);//vertical letters and numbers: starting at 1
-                            g.DrawString("G" + x, stringfont, stringbrush, horz);//horizontal letters and numbers: starting at 0
+                            g.DrawString(variables.letterleft + (x + 1), stringfont, stringbrush, vert);//left letters and numbers: starting at 1
+                            g.DrawString(variables.lettertop + x, stringfont, stringbrush, horz);//top letters and numbers: starting at 0
                             number += formwidth / divide;
                         }
                     }
@@ -247,15 +247,34 @@ namespace Grid_Lines_Applicator
         {
             if (gridletters == false)
             {
-                gridLettersToolStripMenuItem.Checked = true;
+                turnOnOffToolStripMenuItem.Checked = true;
                 gridletters = true;
             }
             else
             {
-                gridLettersToolStripMenuItem.Checked = false;
+                turnOnOffToolStripMenuItem.Checked = false;
                 gridletters = false;
             }
             gridpic.Invalidate();
+        }
+        public static void ThreadProc()
+        {
+
+            Application.Run(new Form2());
+
+        }
+        private void topToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread letter = new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProc));
+            letter.Start();
+            top = variables.top = true;
+        }
+
+        private void leftToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread letter = new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProc));
+            letter.Start();
+            left = variables.left = true;
         }
     }
 }

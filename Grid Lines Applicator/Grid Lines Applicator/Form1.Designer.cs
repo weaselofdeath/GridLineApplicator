@@ -52,6 +52,10 @@
             this.controls2 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.gridpic = new System.Windows.Forms.PictureBox();
+            this.turnOnOffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lettersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.topToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.leftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.slider)).BeginInit();
@@ -135,18 +139,18 @@
             // colorToolStripMenuItem
             // 
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.colorToolStripMenuItem.Text = "Color";
             this.colorToolStripMenuItem.Click += new System.EventHandler(this.colorToolStripMenuItem_Click);
             // 
             // gridLettersToolStripMenuItem
             // 
-            this.gridLettersToolStripMenuItem.Checked = true;
-            this.gridLettersToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.gridLettersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.turnOnOffToolStripMenuItem,
+            this.lettersToolStripMenuItem});
             this.gridLettersToolStripMenuItem.Name = "gridLettersToolStripMenuItem";
-            this.gridLettersToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.gridLettersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.gridLettersToolStripMenuItem.Text = "Grid Letters";
-            this.gridLettersToolStripMenuItem.Click += new System.EventHandler(this.gridLettersToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -259,6 +263,38 @@
             this.gridpic.TabStop = false;
             this.gridpic.Paint += new System.Windows.Forms.PaintEventHandler(this.gridpic_Paint);
             // 
+            // turnOnOffToolStripMenuItem
+            // 
+            this.turnOnOffToolStripMenuItem.Checked = true;
+            this.turnOnOffToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.turnOnOffToolStripMenuItem.Name = "turnOnOffToolStripMenuItem";
+            this.turnOnOffToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.turnOnOffToolStripMenuItem.Text = "Turn On/Off";
+            this.turnOnOffToolStripMenuItem.Click += new System.EventHandler(this.gridLettersToolStripMenuItem_Click);
+            // 
+            // lettersToolStripMenuItem
+            // 
+            this.lettersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.topToolStripMenuItem,
+            this.leftToolStripMenuItem});
+            this.lettersToolStripMenuItem.Name = "lettersToolStripMenuItem";
+            this.lettersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.lettersToolStripMenuItem.Text = "Letters";
+            // 
+            // topToolStripMenuItem
+            // 
+            this.topToolStripMenuItem.Name = "topToolStripMenuItem";
+            this.topToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.topToolStripMenuItem.Text = "Top";
+            this.topToolStripMenuItem.Click += new System.EventHandler(this.topToolStripMenuItem_Click);
+            // 
+            // leftToolStripMenuItem
+            // 
+            this.leftToolStripMenuItem.Name = "leftToolStripMenuItem";
+            this.leftToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.leftToolStripMenuItem.Text = "Left";
+            this.leftToolStripMenuItem.Click += new System.EventHandler(this.leftToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -315,6 +351,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.PictureBox gridpic;
         private System.Windows.Forms.ToolStripMenuItem gridLettersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem turnOnOffToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lettersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem topToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem leftToolStripMenuItem;
     }
 }
 
